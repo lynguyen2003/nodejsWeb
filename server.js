@@ -75,48 +75,48 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
 
                 // -> redirect -> '/'
                 res.redirect('/')
-             })
-            .catch(error => console.error(error))
-        })
-        
-        // (3) UPDATE: client -> click -> 'Replace Yoda's quote'
-        // -> replace / create -> 'Yoda' -> 'Darth Vadar'
-        app.put('/quotes', (req, res) => {
-            quotesCollection.findOneAndUpdate(
-                { name: 'Yoda' },
-                {
-                    // If name 'Yoda' exists, change Yoda’s quotes into Darth Vadar’s quotes
-                    $set: {
-                        name: req.body.name,
-                        quote: req.body.quote
-                    }
-                },
-                {
-                    // If no Yoda quotes exist, force to create a new Darth Vadar quote
-                    upsert: true
-                }
-            )
-            .then(result => res.json('Success'))
+                })
             .catch(error => console.error(error))
         })
 
+        // (3) UPDATE: client -> click -> 'Replace Yoda's quote'
+        // -> replace / create -> 'Yoda' -> 'Darth Vadar'
+        // app.put('/quotes', (req, res) => {
+        //     quotesCollection.findOneAndUpdate(
+        //         { name: 'Yoda' },
+        //         {
+        //             // If name 'Yoda' exists, change Yoda’s quotes into Darth Vadar’s quotes
+        //             $set: {
+        //                 name: req.body.name,
+        //                 quote: req.body.quote
+        //             }
+        //         },
+        //         {
+        //             // If no Yoda quotes exist, force to create a new Darth Vadar quote
+        //             upsert: true
+        //         }
+        //     )
+        //     .then(result => res.json('Success'))
+        //     .catch(error => console.error(error))
+        // })
+
         // (4) DELETE: client -> click -> 'Delete Darth Vadar's quote'
         // -> delete -> 'Darth Vadar' 
-        app.delete('/quotes', (req, res) => {
-            quotesCollection.deleteOne(
-                { name: req.body.name }
-            )
-            .then(result => {
-                res.json(`Deleted Darth Vadar's quote`)
-            })
-            .catch(error => console.error(error))
-        })
+        // app.delete('/quotes', (req, res) => {
+        //     quotesCollection.deleteOne(
+        //         { name: req.body.name }
+        //     )
+        //     .then(result => {
+        //         res.json(`Deleted Darth Vadar's quote`)
+        //     })
+        //     .catch(error => console.error(error))
+        // })
 
         // server -> listen -> port -> 3000
         app.listen(3000, function() {
             console.log('listening on 3000')
         })
-    })
+        })
 
 
 
